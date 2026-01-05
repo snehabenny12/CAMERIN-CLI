@@ -98,14 +98,15 @@ exam_time = time.strftime("%Y-%m-%d %H:%M:%S")
 
 # Display final results
 print(Fore.CYAN + "\n===== Exam Results =====" + Style.RESET_ALL)
-print(Fore.CYAN + f"Student: {username}" + Style.RESET_ALL)
-print(Fore.CYAN + f"Score: {score}/{total_questions}" + Style.RESET_ALL)
-print(Fore.CYAN + f"Percentage: {percentage:.2f}%" + Style.RESET_ALL)
+print(Fore.CYAN + "Student: " + Fore.MAGENTA + f"{username}" + Fore.CYAN + Style.RESET_ALL)
+print(Fore.CYAN + "Score: " + Fore.MAGENTA + f"{score}/{total_questions}" + Fore.CYAN + Style.RESET_ALL)
+print(Fore.CYAN + "Percentage: " + Fore.MAGENTA + f"{percentage:.2f}%" + Fore.CYAN + Style.RESET_ALL)
+
 if result == "PASS":
     print(Fore.GREEN + f"Result: {result}" + Style.RESET_ALL)
 else:
     print(Fore.RED + f"Result: {result}" + Style.RESET_ALL)
-print(Fore.CYAN + f"Date & Time: {exam_time}" + Style.RESET_ALL)
+print(Fore.CYAN + "Date & Time: " + Fore.MAGENTA + f"{exam_time}" + Fore.CYAN + Style.RESET_ALL)
 print(Fore.CYAN + "========================\n" + Style.RESET_ALL)
 
 # Save results
