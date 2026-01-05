@@ -1,7 +1,11 @@
 import time
 import msvcrt
+from colorama import Fore, Style, init
 
-print("Welcome to Online Examination System")
+init()  # Initialize colorama
+
+# Welcome message
+print(Fore.CYAN + "Welcome to Online Examination System\n" + Style.RESET_ALL)
 
 # Login
 username = input("Enter username: ")
@@ -16,10 +20,10 @@ with open("students.txt", "r") as file:
             break
 
 if not valid_user:
-    print("Access Denied. Exiting...")
+    print(Fore.RED + "Access Denied. Exiting..." + Style.RESET_ALL)
     exit()
 
-print(f"\nLogin Successful! Welcome, {username}\nStarting Exam...\n")
+print(Fore.GREEN + f"\nLogin Successful! Welcome, {username}\nStarting Exam...\n" + Style.RESET_ALL)
 
 # Exam settings
 total_exam_time = 30  # total exam time in seconds
@@ -37,10 +41,10 @@ for i, q in enumerate(questions, 1):
     elapsed = time.time() - start_time
     remaining_time = total_exam_time - elapsed
     if remaining_time <= 0:
-        print("\n⏰ Time is up! Auto-submitting your exam...")
+        print(Fore.YELLOW + "\n⏰ Time is up! Auto-submitting your exam..." + Style.RESET_ALL)
         break
 
-    print(f"\nQ{i}: {q['question']}")
+    print(Fore.MAGENTA + f"\nQ{i}: {q['question']}" + Style.RESET_ALL)
     for idx, option in enumerate(q["options"], 1):
         print(f"{idx}. {option}")
 
@@ -55,7 +59,7 @@ for i, q in enumerate(questions, 1):
         print(f"\rTime remaining: {remaining_time} sec | Your answer: {user_answer}", end="", flush=True)
 
         if remaining_time <= 0:
-            print("\n⏰ Time is up! Auto-submitting your exam...")
+            print(Fore.YELLOW + "\n⏰ Time is up! Auto-submitting your exam..." + Style.RESET_ALL)
             break
 
         # Non-blocking input
@@ -80,11 +84,11 @@ for i, q in enumerate(questions, 1):
         selected_option = q["options"][int(user_answer) - 1]
         if selected_option.lower() == q["answer"].lower():
             score += 1
-            print("Correct!\n")
+            print(Fore.GREEN + "✅ Correct!\n" + Style.RESET_ALL)
         else:
-            print(f"Wrong! Correct answer: {q['answer']}\n")
+            print(Fore.RED + f"❌ Wrong! Correct answer: {q['answer']}\n" + Style.RESET_ALL)
     else:
-        print("Invalid input! Moving to next question.\n")
+        print(Fore.YELLOW + "⚠️ Invalid input! Moving to next question.\n" + Style.RESET_ALL)
 
 # Calculate results
 total_questions = len(questions)
@@ -93,19 +97,22 @@ result = "PASS" if percentage >= 50 else "FAIL"
 exam_time = time.strftime("%Y-%m-%d %H:%M:%S")
 
 # Display final results
-print("\n===== Exam Results =====")
-print(f"Student: {username}")
-print(f"Score: {score}/{total_questions}")
-print(f"Percentage: {percentage:.2f}%")
-print(f"Result: {result}")
-print(f"Date & Time: {exam_time}")
-print("========================\n")
+print(Fore.CYAN + "\n===== Exam Results =====" + Style.RESET_ALL)
+print(Fore.CYAN + f"Student: {username}" + Style.RESET_ALL)
+print(Fore.CYAN + f"Score: {score}/{total_questions}" + Style.RESET_ALL)
+print(Fore.CYAN + f"Percentage: {percentage:.2f}%" + Style.RESET_ALL)
+if result == "PASS":
+    print(Fore.GREEN + f"Result: {result}" + Style.RESET_ALL)
+else:
+    print(Fore.RED + f"Result: {result}" + Style.RESET_ALL)
+print(Fore.CYAN + f"Date & Time: {exam_time}" + Style.RESET_ALL)
+print(Fore.CYAN + "========================\n" + Style.RESET_ALL)
 
-# Save results for future reference
+# Save results
 with open("results.txt", "a") as result_file:
     result_file.write(
         f"{username} | Score: {score}/{total_questions} | "
         f"Percentage: {percentage:.2f}% | Result: {result} | {exam_time}\n"
     )
 
-print("✅ Your result has been saved for future reference in 'results.txt'.")
+print(Fore.GREEN + "✅ Your result has been saved for future reference in 'results.txt'." + Style.RESET_ALL)
