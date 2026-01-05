@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Online Examination System (CLI)
 
@@ -29,3 +30,6 @@ A command-line based Online Examination System developed using Core Python.
 3. Run:
    ```bash
    python main.py
+=======
+# CAMERIN-CLI
+>>>>>>> 84065834672e00cd7569766375e1c5322aaee8c4
